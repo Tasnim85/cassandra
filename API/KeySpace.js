@@ -1,4 +1,4 @@
-async function createKeyspaceName(cl, newName) {
+async function createKeyspace(cl, newName) {
     // Create keyspace query
     const query = `CREATE KEYSPACE ${newName} WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 3};`;
 
@@ -10,7 +10,19 @@ async function createKeyspaceName(cl, newName) {
     }
 }
 
-async function deleteKeyspaceName(cl, oldName) {
+async function useKeyspace(cl, keyname) {
+    // Create keyspace query
+    const query = `USE ${keyname};`;
+
+    try {
+        await cl.execute(query);
+        console.log(`Keyspace "${keyname}" is being used successfully!`);
+    } catch (err) {
+        console.error(`Error using keyspace: ${err.message}`);
+    }
+}
+
+async function deleteKeyspace(cl, oldName) {
     // Delete keyspace query
     const query = `DROP KEYSPACE ${oldName};`;
 
@@ -22,7 +34,7 @@ async function deleteKeyspaceName(cl, oldName) {
     }
 }
 
-async function updateKeyspaceName(cl, oldName, newName) {
+async function updateKeyspace(cl, oldName, newName) {
     // Separate drop and create queries
     const dropQuery = `DROP KEYSPACE ${oldName};`;
     const createQuery = `CREATE KEYSPACE ${newName} WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 3};`;
@@ -36,7 +48,7 @@ async function updateKeyspaceName(cl, oldName, newName) {
     }
 }
 
-async function displayKeyspaceNames(cl) {
+async function displayKeyspaces(cl) {
     const query = 'SELECT * FROM system_schema.keyspaces;';
 
     try {
@@ -57,8 +69,9 @@ async function displayKeyspaceNames(cl) {
 
 
 module.exports = {
-    createKeyspaceName,
-    deleteKeyspaceName,
-    updateKeyspaceName,
-    displayKeyspaceNames
+    createKeyspace,
+    useKeyspace,
+    deleteKeyspace,
+    updateKeyspace,
+    displayKeyspaces
 };
