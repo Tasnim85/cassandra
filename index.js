@@ -19,9 +19,11 @@ const columns = [
 const client = new cassandra.Client({ contactPoints, port, localDataCenter });
 
 connectToCassandra(client)
-//createKeyspaceName(client, "isetRades")
-//updateKeyspaceName(client, "isetRades", "bye")
-//deleteKeyspaceName(client, "bye")
-displayKeyspaces(client)
-
-//createTable(client, 'hello', columns);
+//createKeyspace(client, "isetRades")
+//updateKeyspace(client, "isetRades", "bye")
+//deleteKeyspace(client, "bye")
+//displayKeyspaces(client)
+useKeyspace(client, "isetRades")
+//createTable(client, "etudiant", columns);
+//describeTable(client, "etudiant")
+dropTable(client, "etudiant")

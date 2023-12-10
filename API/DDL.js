@@ -68,5 +68,5 @@ module.exports = {
     alterTable,
     dropTable,
     truncateTable,
-    describeTable,
+    describeTable
 };
